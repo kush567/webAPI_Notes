@@ -1,0 +1,68 @@
+Web API
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+SOA(Service Oriented Architecture)
+SOAP(Simple Object Access Protocol)
+REST(REpresentational State Trasnfer)
+
+ASP.NET WEB API
+1. a framework for building http services.
+2. uses standard http methods (get,put,post,delete)
+3. supports multiple text formats like xml, json etc
+
+vs2015
+create  new project => visual C# => Web => select asp.net web apllication (.net framework)
+give the api name as u want, select .net framework below the name 
+click on ok
+select empty and tick on web api and click on ok
+
+
+select web api 2 
+add controler name User
+------------------------------------------------------------------------
+public string Greet(string name)
+{
+	return "Welcome" + name;
+}
+
+run this project & on URL type ie routeTemplate: "api/{controller}/{id}",
+http://localhost:62692/api/user?name=kushal enter
+
+for above code you will get error as 
+<Error>
+<Message>The requested resource does not support http method 'GET'.</Message>
+</Error>
+
+correct above code as 
+
+ [HttpGet]
+        public string Greet(string name)
+        {
+            return "Welcome :" + name;
+        }
+------------------------------------------------------------------------
+https://www.youtube.com/watch?v=EfgSBiZSXAA 
+this is best example for webapi with MVC
+------------------------------------------------------------------------
+Controller
+you can use either MVC 5 Controller OR Web API2 Controller
+MVC 5 Controller - Empty - ActionResult & return View(class.method);
+Web API2 Controller - Empty - IHttpActionResult & return Ok(List<class>);
+you cannot write API code in MVC nor you cannot write MVC code in API
+you have to create saperate cotroller for MVC & API
+ie MVC Controller & API Controller
+------------------------------------------------------------------------
+RC on controller - add new controler - select web api 2 Empty Controler
+
+using System.Web.Http;  =>  return Ok(studentlist);
+using System.Web.Http;  =>  IHttpActionResult
+------------------------------------------------------------------------
+for return Ok(List<class>); you will need reference using System.Web.Http;
+for IHttpActionResult you will need reference using System.Web.Http;
+------------------------------------------------------------------------
+public IHttpActionResult GetStud()
+        {
+            StudentDBHandle d = new Models.StudentDBHandle();
+            List<StudentModel> studentlist = d.GetStudent().ToList();            
+            return Ok(studentlist);
+        }
